@@ -70,10 +70,13 @@ def getDictDif(d1, d2, _path = ""):
             if _type == dict:
                 path = getDictDif(d1[_key], d2[_key], path)
             elif _type == list:
-                for i, value in enumerate(d1[_key]):
-                    a_path = path
-                    a_path += " -> " + str(i) + " (index) "
-                    getDictDif(d1[_key][i], d2[_key][i], a_path)
+                if len(d1[_key]) == len(d2[_key]):
+                    for i, value in enumerate(d1[_key]):
+                        a_path = path
+                        a_path += " -> " + str(i) + " (index) "
+                        getDictDif(d1[_key][i], d2[_key][i], a_path)
+                else:
+                    print("\n\nLIST length not matched -> " + path + " [ d1 length " + str(len(d1[_key])) + "] [ d2 length " + str(len(d2[_key])) + "] ")
             else:
                 if d1[_key] != d2[_key]:
                     print("\n\nVALUE not matched -> " + path)
